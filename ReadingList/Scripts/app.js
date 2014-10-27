@@ -26,6 +26,10 @@
 
     self.detail = ko.observable();
 
+    self.clearDetail = function (detail) {
+        self.detail(null);
+    }
+
     self.getBookDetail = function (item) {
         ajaxHelper(booksUri + item.Id, 'GET').done(function (data) {
             self.detail(data);
