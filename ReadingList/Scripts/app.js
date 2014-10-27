@@ -72,8 +72,14 @@
 
     getAuthors();
 
-
-
+    self.deleteBook = function (book) {
+        self.books.destroy(book);
+        self.clearDetail(book);
+        ajaxHelper(booksUri + book.Id, 'DELETE').done(function () {
+            alert("Deleted");
+        });
+    };
 };
+
 
 ko.applyBindings(new ViewModel());
