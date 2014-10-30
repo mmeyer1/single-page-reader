@@ -2,6 +2,7 @@
     var self = this;
     self.books = ko.observableArray();
     self.error = ko.observable();
+
     var booksUri = '/api/books/';
     var authorsUri = '/api/authors/';
     $('#authorInput').hide();
@@ -26,7 +27,7 @@
         ajaxHelper(booksUri, 'GET').done(function (data) {
             self.books(data);
         });
-    }
+  }
 
     self.detail = ko.observable();
 
@@ -103,7 +104,7 @@
         self.authors.destroy(author);
         ajaxHelper(authorsUri + author.Id, 'DELETE').done(function () {
             alert("Removed the author: " + author.Name);
-            getAllBooks(); // This isn't very effecient, need to iterate through all books and do a targeted hiding of the related objects
+            getAllBooks(); // This isn't very efficient, need to iterate through all books and do a targeted hiding of the related objects
         });
     };
     
