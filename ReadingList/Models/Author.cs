@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ReadingList.Validators;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookService.Models
@@ -7,6 +8,10 @@ namespace BookService.Models
     {
         public int Id { get; set; }
         [Required]
+        [AuthorIsFamousValidator("Name", ErrorMessage = "The author must be famous enough to have a Wiki!")]
         public string Name { get; set; }
+
     }
+
+ 
 }
