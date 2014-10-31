@@ -1,5 +1,6 @@
 ﻿var ViewModel = function () {
     var self = this;
+    var detailItem; 
     self.books = ko.observableArray();
     self.error = ko.observable();
 
@@ -38,7 +39,14 @@
     self.getBookDetail = function (item) {
         ajaxHelper(booksUri + item.Id, 'GET').done(function (data) {
             self.detail(data);
+            detailItem = item;
+            alert("DetailID is: " + self.detail().Id)
         });
+    }
+
+    self.markAsRead = function () {
+        self.detail().read = true;
+        ajaxHelper(booksUri + self.detail().Id, "PUT", self.detail())
     }
 
     self.authors = ko.observableArray();
