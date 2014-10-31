@@ -51,7 +51,8 @@ namespace ReadingList.Controllers
                     Year = b.Year,
                     Price = b.Price,
                     AuthorName = b.Author.Name,
-                    Genre = b.Genre
+                    Genre = b.Genre,
+                    Read = b.Read
                 }).SingleOrDefaultAsync(b => b.Id == id);
             if (book == null)
             {

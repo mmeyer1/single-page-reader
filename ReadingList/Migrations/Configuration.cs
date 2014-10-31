@@ -29,7 +29,8 @@ namespace ReadingList.Migrations
                     Year = 1813,
                     AuthorId = 1,
                     Price = 9.99M,
-                    Genre = "Comedy of manners"
+                    Genre = "Comedy of manners",
+                    Read = false
                 },
                 new Book()
                 {
@@ -38,7 +39,8 @@ namespace ReadingList.Migrations
                     Year = 1817,
                     AuthorId = 1,
                     Price = 12.95M,
-                    Genre = "Gothic parody"
+                    Genre = "Gothic parody",
+                    Read = false
                 },
                 new Book()
                 {
@@ -47,7 +49,8 @@ namespace ReadingList.Migrations
                     Year = 1850,
                     AuthorId = 2,
                     Price = 15,
-                    Genre = "Bildungsroman"
+                    Genre = "Bildungsroman",
+                    Read = false
                 },
                 new Book()
                 {
@@ -56,7 +59,8 @@ namespace ReadingList.Migrations
                     Year = 1617,
                     AuthorId = 3,
                     Price = 8.95M,
-                    Genre = "Picaresque"
+                    Genre = "Picaresque",
+                    Read = false
                 }
                 );
         }

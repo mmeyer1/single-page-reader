@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201410291317220_uniqueAuthorName.Designer.cs">
       <DependentUpon>201410291317220_uniqueAuthorName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410311452529_addReadColumn.cs" />
+    <Compile Include="Migrations\201410311452529_addReadColumn.Designer.cs">
+      <DependentUpon>201410311452529_addReadColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
@@ -261,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410291317220_uniqueAuthorName.resx">
       <DependentUpon>201410291317220_uniqueAuthorName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410311452529_addReadColumn.resx">
+      <DependentUpon>201410311452529_addReadColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

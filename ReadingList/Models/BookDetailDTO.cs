@@ -8,5 +8,6 @@
         public decimal Price { get; set; }
         public string AuthorName { get; set; }
         public string Genre { get; set; }
+        public bool Read { get; set; }
     }
 }

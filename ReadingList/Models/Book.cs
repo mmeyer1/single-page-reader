@@ -10,6 +10,8 @@ namespace BookService.Models
         public int Year { get; set; }
         public decimal Price { get; set; }
         public string Genre { get; set; }
+        [Required]
+        public bool Read { get; set; }
 
         // Foreign Key
         public int AuthorId { get; set; }
