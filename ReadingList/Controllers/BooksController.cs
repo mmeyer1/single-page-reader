@@ -16,14 +16,7 @@ namespace ReadingList.Controllers
 {
     public class BooksController : ApiController
     {
-        private IReadingListAppContext db = new ReadingListContext();
-
-        public BooksController() {}
-
-        public BooksController(IReadingListAppContext context)
-        {
-            db = context;
-        }
+        private ReadingListContext db = new ReadingListContext();
 
         // GET: api/Books
         public IQueryable<BookDTO> GetBooks()
@@ -76,8 +69,7 @@ namespace ReadingList.Controllers
                 return BadRequest();
             }
 
-           //db.Entry(book).State = EntityState.Modified;
-            db.MarkAsModified(book);
+            db.Entry(book).State = EntityState.Modified;
 
             try
             {
@@ -110,8 +102,7 @@ namespace ReadingList.Controllers
             db.Books.Add(book);
             await db.SaveChangesAsync();
 
-            //db.Entry(book).Reference(x => x.Author).Load();
-            db.LoadAuthors(book); 
+            db.Entry(book).Reference(x => x.Author).Load();
 
             var dto = new BookDTO()
             {
