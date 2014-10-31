@@ -47,7 +47,8 @@
         Genre: ko.observable(),
         Price: ko.observable(),
         Title: ko.observable(),
-        Year: ko.observable()
+        Year: ko.observable(),
+        Read: false
     }
     self.newAuthor = {
         Name:ko.observable()
@@ -65,7 +66,8 @@
             Genre: self.newBook.Genre(),
             Price: self.newBook.Price(),
             Title: self.newBook.Title(),
-            Year: self.newBook.Year()
+            Year: self.newBook.Year(),
+            Read: false
         };
 
         ajaxHelper(booksUri, 'POST', book).done(function (item) {
