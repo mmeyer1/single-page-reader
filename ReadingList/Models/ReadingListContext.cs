@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookService.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace ReadingList.Models
 {
-    public class ReadingListContext : DbContext
+    public class ReadingListContext : DbContext, IReadingListAppContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
         // 
@@ -22,6 +23,15 @@ namespace ReadingList.Models
         public System.Data.Entity.DbSet<BookService.Models.Author> Authors { get; set; }
 
         public System.Data.Entity.DbSet<BookService.Models.Book> Books { get; set; }
-    
+
+        public void MarkAsModified(Book item)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
+
+        public void LoadAuthors(Book item)
+        {
+            Entry(item).Reference(x => x.Author).Load();
+        }
     }
 }
