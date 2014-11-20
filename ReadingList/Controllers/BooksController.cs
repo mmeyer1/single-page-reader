@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -11,12 +10,17 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using BookService.Models;
 using ReadingList.Models;
+using System.Data.Entity.Infrastructure;
 
 namespace ReadingList.Controllers
 {
     public class BooksController : ApiController
     {
-        private ReadingListContext db = new ReadingListContext();
+        private ReadingListContext db;
+        public BooksController(ReadingListContext context)
+        {
+            db = context;
+        }
 
         // GET: api/Books
         public IQueryable<BookDTO> GetBooks()
@@ -129,15 +133,6 @@ namespace ReadingList.Controllers
             await db.SaveChangesAsync();
 
             return Ok(book);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private bool BookExists(int id)
