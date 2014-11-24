@@ -7,14 +7,14 @@
     </div>
 
     <div class="row">
-
+        <div><p>Filter: <input data-bind="value: filter, valueUpdate: 'afterkeydown'" /></p></div>
         <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2 class="panel-title">Books</h2>
                 </div>
                 <div class="panel-body">
-                    <ul class="list-unstyled" data-bind="foreach: books">
+                    <ul class="list-unstyled" data-bind="foreach: filteredBooks">
                         <li>
                             <strong><span data-bind="text: AuthorName"></span></strong>: <span data-bind="text: Title"></span>
                             <small><a href="#" data-bind="click: $parent.getBookDetail">Details</a></small>

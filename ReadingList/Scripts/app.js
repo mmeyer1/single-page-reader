@@ -2,6 +2,7 @@
     var self = this;
     self.books = ko.observableArray();
     self.error = ko.observable();
+    self.filter = ko.observable("");
 
     var booksUri = '/api/books/';
     var authorsUri = '/api/authors/';
@@ -88,6 +89,16 @@
         });
     };
 
+    self.filteredBooks = ko.dependentObservable(function () {
+        var filter = self.filter();
+        if (!filter) {
+            return self.books();
+        } else {
+            return ko.utils.arrayFilter(self.books(), function (item) {
+                return item.Title.indexOf(filter) !== -1;
+            });
+        }
+    }, ViewModel);
 
     // Author-specific view methods
 
