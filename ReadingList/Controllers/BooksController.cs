@@ -1,52 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
+﻿using BookService.Models;
+using ReadingList.Models;
+using System.Collections;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using BookService.Models;
-using ReadingList.Models;
 
 namespace ReadingList.Controllers
 {
     public class BooksController : ApiController
     {
-        private ReadingListContext db = new ReadingListContext();
+      private static readonly IBookRepository repository = new EFBookRepository(); 
 
         // GET: api/Books
-        public IQueryable<BookDTO> GetBooks()
+        public IEnumerable GetBooks()
         {
-            var books = from b in db.Books
-                        select new BookDTO()
-                        {
-                            Id = b.Id,
-                            Title = b.Title,
-                            AuthorName = b.Author.Name
-                        };
-
-            return books;
+            return repository.GetAll();
         }
 
         // GET api/Books/5
         [ResponseType(typeof(BookDetailDTO))]
         public async Task<IHttpActionResult> GetBook(int id)
         {
-            var book = await db.Books.Include(b => b.Author).Select(b =>
-                new BookDetailDTO()
-                {
-                    Id = b.Id,
-                    Title = b.Title,
-                    Year = b.Year,
-                    Price = b.Price,
-                    AuthorName = b.Author.Name,
-                    Genre = b.Genre,
-                    Read = b.Read
-                }).SingleOrDefaultAsync(b => b.Id == id);
+            var book = await repository.Get(id);
             if (book == null)
             {
                 return NotFound();
@@ -69,25 +45,14 @@ namespace ReadingList.Controllers
                 return BadRequest();
             }
 
-            db.Entry(book).State = EntityState.Modified;
-
-            try
+ 
+            if(await repository.Put(id, book))
             {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
             return StatusCode(HttpStatusCode.NoContent);
+            } else 
+            {
+             return BadRequest();
+            }
         }
 
         // POST: api/Books
@@ -99,10 +64,7 @@ namespace ReadingList.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Books.Add(book);
-            await db.SaveChangesAsync();
-
-            db.Entry(book).Reference(x => x.Author).Load();
+            await repository.Post(book);
 
             var dto = new BookDTO()
             {
@@ -119,30 +81,24 @@ namespace ReadingList.Controllers
         [ResponseType(typeof(Book))]
         public async Task<IHttpActionResult> DeleteBook(int id)
         {
-            Book book = await db.Books.FindAsync(id);
-            if (book == null)
+            if (await repository.Delete(id)) 
             {
+                return Ok();
+            }else 
+            {  
                 return NotFound();
             }
-
-            db.Books.Remove(book);
-            await db.SaveChangesAsync();
-
-            return Ok(book);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
 
-        private bool BookExists(int id)
-        {
-            return db.Books.Count(e => e.Id == id) > 0;
-        }
+       
     }
 }

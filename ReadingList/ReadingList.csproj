@@ -200,6 +200,8 @@
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookDetailDTO.cs" />
     <Compile Include="Models\BookDTO.cs" />
+    <Compile Include="Models\EFBookRepository.cs" />
+    <Compile Include="Models\IBookRepository.cs" />
     <Compile Include="Models\ReadingListContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\AuthorIsFamousValidator.cs" />

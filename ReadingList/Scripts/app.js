@@ -95,7 +95,7 @@
             return self.books();
         } else {
             return ko.utils.arrayFilter(self.books(), function (item) {
-                return item.Title.indexOf(filter) !== -1;
+                return (item.Title.indexOf(filter) !== -1);
             });
         }
     }, ViewModel);
