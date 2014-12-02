@@ -10,8 +10,8 @@ namespace ReadingList.Controllers
 {
     public class BooksController : ApiController
     {
-      private static readonly IBookRepository repository = new EFBookRepository(); 
-
+        public IBookRepository repository = new EFBookRepository();
+   
         // GET: api/Books
         public IEnumerable GetBooks()
         {
